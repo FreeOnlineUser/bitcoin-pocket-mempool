@@ -23,6 +23,8 @@ import java.util.concurrent.atomic.AtomicInteger
 /**
  * Service that manages mempool data and GBT projections
  */
+private val lenientJson = Json { ignoreUnknownKeys = true }
+
 class MempoolService : Service() {
     companion object {
         private const val TAG = "MempoolService"
@@ -71,6 +73,14 @@ class MempoolService : Service() {
     private val _feeEstimates = MutableStateFlow(FeeEstimates())
     val feeEstimates: StateFlow<FeeEstimates> = _feeEstimates.asStateFlow()
     
+    // Projected block info with fee rate data
+    private val _projectedBlocks = MutableStateFlow<List<ProjectedBlockInfo>>(emptyList())
+    val projectedBlocks: StateFlow<List<ProjectedBlockInfo>> = _projectedBlocks.asStateFlow()
+
+    // Latest mined block info
+    private val _latestBlock = MutableStateFlow<LatestBlockInfo?>(null)
+    val latestBlock: StateFlow<LatestBlockInfo?> = _latestBlock.asStateFlow()
+
     // RPC connection status
     private val _rpcStatus = MutableStateFlow(RpcStatus.DISCONNECTED)
     val rpcStatus: StateFlow<RpcStatus> = _rpcStatus.asStateFlow()
@@ -242,6 +252,9 @@ class MempoolService : Service() {
                 runGbtAlgorithm(addedTxIds, removedTxIds)
             }
             
+            // Fetch latest mined block
+            fetchLatestBlock()
+            
             // Check watched transactions for confirmations
             checkWatchedTransactions()
             
@@ -273,7 +286,7 @@ class MempoolService : Service() {
             
             json.forEach { (txid, entryJson) ->
                 try {
-                    val entry = Json.decodeFromJsonElement(MempoolEntry.serializer(), entryJson)
+                    val entry = lenientJson.decodeFromJsonElement(MempoolEntry.serializer(), entryJson)
                     result[txid] = entry
                 } catch (e: Exception) {
                     Log.w(TAG, "Failed to parse mempool entry for $txid", e)
@@ -349,6 +362,7 @@ class MempoolService : Service() {
                 )
                 
                 _gbtResult.value = result
+                result?.let { computeProjectedBlockInfo(it) }
                 Log.d(TAG, "GBT update completed: ${result?.blocks?.size} blocks projected")
                 
             } else {
@@ -363,11 +377,104 @@ class MempoolService : Service() {
                 )
                 
                 _gbtResult.value = result
+                result?.let { computeProjectedBlockInfo(it) }
                 Log.d(TAG, "GBT full run completed: ${result?.blocks?.size} blocks projected")
             }
             
         } catch (e: Exception) {
             Log.e(TAG, "Error running GBT algorithm", e)
+        }
+    }
+
+    private fun computeProjectedBlockInfo(gbtResult: GbtResult) {
+        try {
+            val blockInfos = gbtResult.blocks.mapIndexed { index, block ->
+                val feeRates = mutableListOf<Double>()
+                val weights = mutableListOf<Int>()
+                var totalFees = 0.0
+                var totalWeight = gbtResult.blockWeights.getOrNull(index) ?: 0
+
+                for (uid in block) {
+                    val txId = uidToTxId[uid] ?: continue
+                    val entry = currentMempool[txId] ?: continue
+                    val feeRate = entry.effectiveFee / entry.vsize.toDouble() * 100_000_000.0 // sat/vB
+                    feeRates.add(feeRate)
+                    weights.add(entry.weight)
+                    totalFees += entry.effectiveFee
+                }
+
+                val sortedRates = feeRates.sorted()
+                val minFeeRate = sortedRates.firstOrNull() ?: 0.0
+                val maxFeeRate = sortedRates.lastOrNull() ?: 0.0
+                val medianFeeRate = if (sortedRates.isNotEmpty()) {
+                    val mid = sortedRates.size / 2
+                    if (sortedRates.size % 2 == 0) (sortedRates[mid - 1] + sortedRates[mid]) / 2.0
+                    else sortedRates[mid]
+                } else 0.0
+
+                // Compute fee rate bands
+                data class BandDef(val range: ClosedFloatingPointRange<Double>, val label: String)
+                val bandDefs = listOf(
+                    BandDef(0.0..2.0, "magenta"),
+                    BandDef(2.0..4.0, "purple"),
+                    BandDef(4.0..10.0, "blue"),
+                    BandDef(10.0..20.0, "green"),
+                    BandDef(20.0..50.0, "yellow"),
+                    BandDef(50.0..100.0, "orange"),
+                    BandDef(100.0..Double.MAX_VALUE, "red")
+                )
+
+                val totalWeightForBands = weights.sum().toFloat().coerceAtLeast(1f)
+                val bands = bandDefs.mapNotNull { bandDef ->
+                    var bandWeight = 0
+                    for (i in feeRates.indices) {
+                        if (feeRates[i] >= bandDef.range.start && (feeRates[i] < bandDef.range.endInclusive || bandDef.range.endInclusive == Double.MAX_VALUE)) {
+                            bandWeight += weights[i]
+                        }
+                    }
+                    if (bandWeight > 0) {
+                        FeeRateBand(
+                            feeRateRange = bandDef.range,
+                            proportion = bandWeight / totalWeightForBands
+                        )
+                    } else null
+                }
+
+                ProjectedBlockInfo(
+                    index = index,
+                    transactionCount = block.size,
+                    totalWeight = totalWeight,
+                    totalFees = totalFees,
+                    minFeeRate = minFeeRate,
+                    maxFeeRate = maxFeeRate,
+                    medianFeeRate = medianFeeRate,
+                    feeRateBands = bands
+                )
+            }
+            _projectedBlocks.value = blockInfos
+        } catch (e: Exception) {
+            Log.e(TAG, "Error computing projected block info", e)
+        }
+    }
+
+    private suspend fun fetchLatestBlock() {
+        try {
+            val blockHash = rpcClient.getBestBlockHash()
+            // Only update if hash changed
+            if (_latestBlock.value?.hash == blockHash) return
+            
+            val blockJson = rpcClient.getBlock(blockHash, 1).jsonObject
+            _latestBlock.value = LatestBlockInfo(
+                height = blockJson["height"]?.jsonPrimitive?.int ?: 0,
+                hash = blockHash,
+                time = blockJson["time"]?.jsonPrimitive?.long ?: 0L,
+                txCount = blockJson["nTx"]?.jsonPrimitive?.int ?: blockJson["tx"]?.jsonArray?.size ?: 0,
+                size = blockJson["size"]?.jsonPrimitive?.int ?: 0,
+                weight = blockJson["weight"]?.jsonPrimitive?.int ?: 0
+            )
+            Log.d(TAG, "Latest block updated: ${_latestBlock.value?.height}")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching latest block", e)
         }
     }
 
@@ -380,7 +487,7 @@ class MempoolService : Service() {
         }.toIntArray()
         
         // Calculate effective fee per vsize
-        val effectiveFeePerVsize = entry.fee / entry.vsize.toDouble()
+        val effectiveFeePerVsize = entry.effectiveFee / entry.vsize.toDouble()
         
         // Use time as order (later transactions have higher order)
         val order = (entry.time and 0xFFFFFFFF).toInt()
@@ -388,7 +495,7 @@ class MempoolService : Service() {
         return ThreadTransaction(
             uid = uid,
             order = order,
-            fee = entry.fee,
+            fee = entry.effectiveFee,
             weight = entry.weight,
             sigops = 0, // TODO: Get actual sigops count from RPC if available
             effectiveFeePerVsize = effectiveFeePerVsize,
@@ -401,7 +508,7 @@ class MempoolService : Service() {
         
         // Group transactions by fee rate ranges (sat/vB)
         currentMempool.values.forEach { entry ->
-            val feeRate = (entry.fee / entry.vsize * 100_000_000).toInt() // Convert to sat/vB
+            val feeRate = (entry.effectiveFee / entry.vsize * 100_000_000).toInt() // Convert to sat/vB
             val bucket = when {
                 feeRate <= 2 -> 1
                 feeRate <= 4 -> 3

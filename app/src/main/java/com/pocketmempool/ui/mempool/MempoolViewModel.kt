@@ -10,6 +10,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.pocketmempool.mempool.*
+import com.pocketmempool.mempool.ProjectedBlockInfo
+import com.pocketmempool.mempool.LatestBlockInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,6 +41,12 @@ class MempoolViewModel(application: Application) : AndroidViewModel(application)
     private val _feeEstimates = MutableStateFlow(FeeEstimates())
     val feeEstimates: StateFlow<FeeEstimates> = _feeEstimates.asStateFlow()
     
+    private val _projectedBlocks = MutableStateFlow<List<ProjectedBlockInfo>>(emptyList())
+    val projectedBlocks: StateFlow<List<ProjectedBlockInfo>> = _projectedBlocks.asStateFlow()
+
+    private val _latestBlock = MutableStateFlow<LatestBlockInfo?>(null)
+    val latestBlock: StateFlow<LatestBlockInfo?> = _latestBlock.asStateFlow()
+
     private val _rpcStatus = MutableStateFlow(RpcStatus.DISCONNECTED)
     val rpcStatus: StateFlow<RpcStatus> = _rpcStatus.asStateFlow()
     
@@ -89,6 +97,18 @@ class MempoolViewModel(application: Application) : AndroidViewModel(application)
             viewModelScope.launch {
                 mempoolService?.rpcStatus?.collect {
                     _rpcStatus.value = it
+                }
+            }
+            
+            viewModelScope.launch {
+                mempoolService?.projectedBlocks?.collect {
+                    _projectedBlocks.value = it
+                }
+            }
+            
+            viewModelScope.launch {
+                mempoolService?.latestBlock?.collect {
+                    _latestBlock.value = it
                 }
             }
         }
