@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <!-- Orange circle -->
+  <path
+      android:fillColor="#FF9500"
+      android:pathData="M54,54m-32,0a32,32 0,1 1,64 0a32,32 0,1 1,-64 0"/>
+  <!-- Bold white M - left vertical -->
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M36,38 L42,38 L42,70 L36,70 Z"/>
+  <!-- Bold white M - left diagonal -->
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M36,38 L42,38 L54,56 L48,56 Z"/>
+  <!-- Bold white M - right diagonal -->
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M54,56 L60,56 L72,38 L66,38 Z"/>
+  <!-- Bold white M - right vertical -->
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M66,38 L72,38 L72,70 L66,70 Z"/>
+</vector>

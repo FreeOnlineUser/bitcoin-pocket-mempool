@@ -171,8 +171,8 @@ private fun StatItem(label: String, value: String, modifier: Modifier = Modifier
 // Fee rate color mapping
 private fun getFeeRateColor(feeRate: Double): Color {
     return when {
-        feeRate <= 2 -> Color(0xFFD81B9C)   // Magenta
-        feeRate <= 4 -> Color(0xFF9C27B0)   // Purple
+        feeRate <= 2 -> Color(0xFF004D40)   // Dark teal
+        feeRate <= 4 -> Color(0xFF006064)   // Deep cyan
         feeRate <= 10 -> Color(0xFF2196F3)  // Blue
         feeRate <= 20 -> Color(0xFF4CAF50)  // Green
         feeRate <= 50 -> Color(0xFFFFEB3B)  // Yellow
