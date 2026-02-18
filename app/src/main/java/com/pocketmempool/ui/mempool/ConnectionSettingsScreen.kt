@@ -1,6 +1,8 @@
 package com.pocketmempool.ui.mempool
 
+import android.content.ClipboardManager
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -128,6 +130,35 @@ fun ConnectionSettingsScreen(
                     ) {
                         Text("Remote Node")
                     }
+                }
+                
+                // Paste from clipboard (e.g. copied from Pocket Node)
+                OutlinedButton(
+                    onClick = {
+                        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = clipboard.primaryClip
+                        if (clip != null && clip.itemCount > 0) {
+                            val text = clip.getItemAt(0).text?.toString() ?: ""
+                            // Parse RPC URI format: rpc://user:pass@host:port
+                            // or JSON format: {"host":"...","port":...,"user":"...","pass":"..."}
+                            val parsed = parseConnectionString(text)
+                            if (parsed != null) {
+                                host = parsed.host
+                                port = parsed.port.toString()
+                                username = parsed.user
+                                password = parsed.pass
+                                useSSL = parsed.ssl
+                                Toast.makeText(context, "Connection details pasted!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(context, "Clipboard doesn't contain RPC connection details", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Icon(Icons.Default.ContentPaste, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Paste from Clipboard")
                 }
             }
         }
@@ -313,4 +344,55 @@ sealed class ConnectionStatus {
 
 class ConnectionSettingsViewModel : androidx.lifecycle.ViewModel() {
     // Add any necessary view model logic here
+}
+
+private data class ParsedConnection(
+    val host: String,
+    val port: Int,
+    val user: String,
+    val pass: String,
+    val ssl: Boolean = false
+)
+
+private fun parseConnectionString(text: String): ParsedConnection? {
+    val trimmed = text.trim()
+    
+    // Try rpc://user:pass@host:port format
+    val rpcRegex = Regex("""rpc(s?)://([^:]+):([^@]+)@([^:]+):(\d+)""")
+    rpcRegex.find(trimmed)?.let { match ->
+        return ParsedConnection(
+            host = match.groupValues[4],
+            port = match.groupValues[5].toIntOrNull() ?: 8332,
+            user = match.groupValues[2],
+            pass = match.groupValues[3],
+            ssl = match.groupValues[1] == "s"
+        )
+    }
+    
+    // Try JSON format: {"host":"...","port":...,"user":"...","pass":"..."}
+    try {
+        if (trimmed.startsWith("{")) {
+            val json = org.json.JSONObject(trimmed)
+            return ParsedConnection(
+                host = json.optString("host", "localhost"),
+                port = json.optInt("port", 8332),
+                user = json.optString("user", json.optString("username", "")),
+                pass = json.optString("pass", json.optString("password", "")),
+                ssl = json.optBoolean("ssl", false)
+            )
+        }
+    } catch (_: Exception) {}
+    
+    // Try simple host:port:user:pass format
+    val parts = trimmed.split(":")
+    if (parts.size >= 4) {
+        return ParsedConnection(
+            host = parts[0],
+            port = parts[1].toIntOrNull() ?: 8332,
+            user = parts[2],
+            pass = parts.drop(3).joinToString(":")
+        )
+    }
+    
+    return null
 }
