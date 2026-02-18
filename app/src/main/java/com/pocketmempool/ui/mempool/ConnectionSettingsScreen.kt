@@ -4,6 +4,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -28,6 +31,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun ConnectionSettingsScreen(
     onNavigateToMempool: () -> Unit,
+    onNavigateBack: (() -> Unit)? = null,
+    autoConnect: Boolean = true,
     viewModel: ConnectionSettingsViewModel = viewModel()
 ) {
     val context = LocalContext.current
@@ -51,9 +56,8 @@ fun ConnectionSettingsScreen(
         password = prefs.getPassword()
         useSSL = prefs.getUseSSL()
         
-        // Check if connection is configured and working
-        if (prefs.isConfigured()) {
-            // Test existing connection
+        // Check if connection is configured and working (only auto-navigate on first launch)
+        if (autoConnect && prefs.isConfigured()) {
             scope.launch {
                 connectionStatus = ConnectionStatus.Connecting
                 try {
@@ -65,28 +69,41 @@ fun ConnectionSettingsScreen(
                     )
                     client.getBlockchainInfo()
                     connectionStatus = ConnectionStatus.Connected
-                    // Auto-navigate to mempool if connection works
                     onNavigateToMempool()
                 } catch (e: Exception) {
                     connectionStatus = ConnectionStatus.Error(e.message ?: "Connection failed")
                 }
             }
+        } else if (prefs.isConfigured()) {
+            // Just show as connected without auto-navigating
+            connectionStatus = ConnectionStatus.Connected
         }
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.statusBars)
             .padding(16.dp)
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Header
-        Text(
-            text = "Bitcoin Node Connection",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
-        )
+        // Header with back button
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            if (onNavigateBack != null) {
+                IconButton(onClick = onNavigateBack) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                }
+            }
+            Text(
+                text = "Bitcoin Node Connection",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
+            )
+        }
         
         Text(
             text = "Connect to any Bitcoin node with RPC access to explore its mempool",

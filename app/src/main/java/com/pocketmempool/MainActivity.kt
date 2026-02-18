@@ -63,8 +63,20 @@ fun PocketMempoolApp() {
                         navController.navigate("transaction_search")
                     },
                     onNavigateToSettings = {
-                        navController.navigate("connection_settings")
+                        navController.navigate("settings")
                     }
+                )
+            }
+            
+            composable("settings") {
+                ConnectionSettingsScreen(
+                    onNavigateToMempool = {
+                        navController.popBackStack()
+                    },
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    },
+                    autoConnect = false
                 )
             }
             

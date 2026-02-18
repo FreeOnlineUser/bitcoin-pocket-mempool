@@ -150,6 +150,10 @@ class MempoolViewModel(application: Application) : AndroidViewModel(application)
         _selectedBlockDetails.value = null
     }
     
+    fun reinitializeConnection() {
+        mempoolService?.reinitializeRpcClient()
+    }
+    
     fun refreshMempool() {
         viewModelScope.launch {
             _isRefreshing.value = true

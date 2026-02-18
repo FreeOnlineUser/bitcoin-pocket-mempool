@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-54:12
-INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-54:12
-INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-54:12
-INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-54:12
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-60:12
+INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-60:12
+INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-60:12
+INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:2:1-60:12
 MERGED from [androidx.preference:preference-ktx:1.2.1] /Users/joehey/.gradle/caches/transforms-3/6624da493cb39dbb94376fa6a9033437/transformed/jetified-preference-ktx-1.2.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.work:work-runtime-ktx:2.9.0] /Users/joehey/.gradle/caches/transforms-3/2c95a539787a0cccf6a8394b086e4c11/transformed/work-runtime-ktx-2.9.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/joehey/.gradle/caches/transforms-3/daba9ed61ad7fc3765244e9e5cab1896/transformed/work-runtime-2.9.0/AndroidManifest.xml:17:1-145:12
@@ -119,8 +119,8 @@ ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManife
 	android:name
 		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:13:22-63
 application
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:15:5-52:19
-INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:15:5-52:19
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:15:5-58:19
+INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:15:5-58:19
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/joehey/.gradle/caches/transforms-3/daba9ed61ad7fc3765244e9e5cab1896/transformed/work-runtime-2.9.0/AndroidManifest.xml:28:5-143:19
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/joehey/.gradle/caches/transforms-3/daba9ed61ad7fc3765244e9e5cab1896/transformed/work-runtime-2.9.0/AndroidManifest.xml:28:5-143:19
 MERGED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/joehey/.gradle/caches/transforms-3/b878510da3985c82241547259b50ab45/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:22:5-26:19
@@ -156,57 +156,65 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/joehey/.gradle/cache
 	android:roundIcon
 		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:22:9-54
 	tools:targetApi
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:25:9-29
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:26:9-29
 	android:icon
 		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:20:9-43
 	android:allowBackup
 		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:17:9-35
 	android:theme
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:24:9-51
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:25:9-51
+	android:networkSecurityConfig
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:24:9-69
 	android:dataExtractionRules
 		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:18:9-65
 	android:name
 		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:16:9-49
 activity#com.pocketmempool.MainActivity
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:28:9-37:20
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:29:9-38:20
 	android:label
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:31:13-45
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:32:13-45
 	android:exported
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:30:13-36
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:31:13-36
 	android:theme
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:32:13-55
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:33:13-55
 	android:name
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:29:13-41
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:30:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:33:13-36:29
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:34:13-37:29
 action#android.intent.action.MAIN
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:34:17-69
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:35:17-69
 	android:name
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:34:25-66
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:35:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:35:17-77
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:36:17-77
 	android:name
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:35:27-74
-receiver#com.pocketmempool.widget.MempoolWidgetProvider
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:40:9-50:20
-	android:label
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:43:13-42
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:36:27-74
+service#com.pocketmempool.mempool.MempoolService
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:41:9-43:40
 	android:exported
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:42:13-37
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:43:13-37
 	android:name
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:41:13-57
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:42:13-51
+receiver#com.pocketmempool.widget.MempoolWidgetProvider
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:46:9-56:20
+	android:label
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:49:13-42
+	android:exported
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:48:13-37
+	android:name
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:47:13-57
 intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:44:13-46:29
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:50:13-52:29
 action#android.appwidget.action.APPWIDGET_UPDATE
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:45:17-84
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:51:17-84
 	android:name
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:45:25-81
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:51:25-81
 meta-data#android.appwidget.provider
-ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:47:13-49:63
+ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:53:13-55:63
 	android:resource
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:49:17-60
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:55:17-60
 	android:name
-		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:48:17-58
+		ADDED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml:54:17-58
 uses-sdk
 INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/joehey/clawd/bitcoin-pocket-mempool/app/src/main/AndroidManifest.xml

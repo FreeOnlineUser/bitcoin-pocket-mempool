@@ -297,6 +297,7 @@ com.pocketmempool:string/summary_collapsed_preference_list = 0x7f0d007c
 com.pocketmempool:string/selected = 0x7f0d007a
 com.pocketmempool:style/TextAppearance.AppCompat.Body1 = 0x7f0e00e0
 com.pocketmempool:string/search_menu_title = 0x7f0d0079
+com.pocketmempool:xml/network_security_config = 0x7f100003
 com.pocketmempool:color/material_grey_100 = 0x7f05003c
 com.pocketmempool:string/projected_blocks_title = 0x7f0d0076
 com.pocketmempool:string/projected_blocks_no_data = 0x7f0d0075

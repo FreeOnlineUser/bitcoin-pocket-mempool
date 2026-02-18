@@ -48,3 +48,4 @@ style Theme.PocketMempool
 xml backup_rules
 xml data_extraction_rules
 xml mempool_widget_info
+xml network_security_config

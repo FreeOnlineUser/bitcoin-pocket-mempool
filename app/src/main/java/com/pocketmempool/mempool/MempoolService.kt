@@ -75,6 +75,18 @@ class MempoolService : Service() {
     private val _rpcStatus = MutableStateFlow(RpcStatus.DISCONNECTED)
     val rpcStatus: StateFlow<RpcStatus> = _rpcStatus.asStateFlow()
 
+    fun reinitializeRpcClient() {
+        Log.d(TAG, "Reinitializing RPC client from connection preferences")
+        isRpcConnected = false
+        _rpcStatus.value = RpcStatus.DISCONNECTED
+        currentMempool.clear()
+        txIdToUid.clear()
+        uidToTxId.clear()
+        uidCounter.set(1)
+        _gbtResult.value = null
+        initializeRpcClient()
+    }
+
     inner class MempoolBinder : Binder() {
         fun getService(): MempoolService = this@MempoolService
     }
@@ -100,17 +112,28 @@ class MempoolService : Service() {
     }
 
     private fun initializeRpcClient() {
-        // Initialize defaults if needed
-        RpcConfigDefaults.initializeDefaultsIfNeeded(this)
-        
-        val config = RpcConfig.load(this)
-        rpcClient = BitcoinRpcClient(
-            rpcHost = config.host,
-            rpcPort = config.port,
-            rpcUser = config.username,
-            rpcPassword = config.password
-        )
-        Log.d(TAG, "RPC client initialized for ${config.host}:${config.port} (${config.network})")
+        // Load from ConnectionPreferences (set by the connection settings screen)
+        val connPrefs = com.pocketmempool.storage.ConnectionPreferences(this)
+        if (connPrefs.isConfigured()) {
+            rpcClient = BitcoinRpcClient(
+                rpcHost = connPrefs.getHost(),
+                rpcPort = connPrefs.getPort(),
+                rpcUser = connPrefs.getUsername(),
+                rpcPassword = connPrefs.getPassword()
+            )
+            Log.d(TAG, "RPC client initialized for ${connPrefs.getHost()}:${connPrefs.getPort()}")
+        } else {
+            // Fallback to RpcConfig defaults
+            RpcConfigDefaults.initializeDefaultsIfNeeded(this)
+            val config = RpcConfig.load(this)
+            rpcClient = BitcoinRpcClient(
+                rpcHost = config.host,
+                rpcPort = config.port,
+                rpcUser = config.username,
+                rpcPassword = config.password
+            )
+            Log.d(TAG, "RPC client initialized from defaults for ${config.host}:${config.port}")
+        }
     }
     
     private fun initializeWatchListManager() {

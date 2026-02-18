@@ -1,38 +1,42 @@
 [
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/drawable_widget_indicator_circle.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/drawable/widget_indicator_circle.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/layout_widget_mempool.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/layout/widget_mempool.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/xml_mempool_widget_info.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/xml/mempool_widget_info.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/drawable_widget_background.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/drawable/widget_background.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/xml_data_extraction_rules.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/xml/data_extraction_rules.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/xml_backup_rules.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/drawable_widget_background.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/drawable/widget_background.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/layout_widget_mempool.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/layout/widget_mempool.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/drawable_widget_indicator_circle.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/drawable/widget_indicator_circle.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/xml_backup_rules.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/xml/backup_rules.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/drawable_ic_bitcoin_notification.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/drawable/ic_bitcoin_notification.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/drawable_ic_bitcoin_notification.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/drawable/ic_bitcoin_notification.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/xml_mempool_widget_info.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/xml/mempool_widget_info.xml"
     },
     {
-        "merged": "com.pocketmempool.app-merged_res-71:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.pocketmempool.app-main-73:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-merged_res-71:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/joehey/.gradle/daemon/8.5/com.pocketmempool.app-main-73:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.pocketmempool.app-merged_res-71:/xml_network_security_config.xml.flat",
+        "source": "com.pocketmempool.app-main-73:/xml/network_security_config.xml"
     }
 ]

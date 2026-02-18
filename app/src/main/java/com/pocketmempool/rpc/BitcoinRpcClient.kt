@@ -100,7 +100,7 @@ class BitcoinRpcClient(
      * Get raw mempool with verbose transaction details
      */
     suspend fun getRawMempool(): JsonObject {
-        val result = call("getrawmempool", JsonPrimitive(true))
+        val result = call("getrawmempool", JsonArray(listOf(JsonPrimitive(true))))
         return result.jsonObject
     }
 
@@ -116,7 +116,7 @@ class BitcoinRpcClient(
      * Estimate smart fee for confirmation target
      */
     suspend fun estimateSmartFee(confTarget: Int): JsonObject {
-        val result = call("estimatesmartfee", JsonPrimitive(confTarget))
+        val result = call("estimatesmartfee", JsonArray(listOf(JsonPrimitive(confTarget))))
         return result.jsonObject
     }
 
@@ -134,14 +134,14 @@ class BitcoinRpcClient(
      * @param verbosity 0=hex, 1=json, 2=json with tx details
      */
     suspend fun getBlock(blockHash: String, verbosity: Int = 1): JsonElement {
-        return call("getblock", JsonPrimitive(blockHash), JsonPrimitive(verbosity))
+        return call("getblock", JsonArray(listOf(JsonPrimitive(blockHash), JsonPrimitive(verbosity))))
     }
 
     /**
      * Get raw transaction
      */
     suspend fun getRawTransaction(txid: String, verbose: Boolean = true): JsonElement {
-        return call("getrawtransaction", JsonPrimitive(txid), JsonPrimitive(verbose))
+        return call("getrawtransaction", JsonArray(listOf(JsonPrimitive(txid), JsonPrimitive(verbose))))
     }
 
     /**
