@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.PocketMempool" parent="android:Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">#F7931A</item>
+        <item name="android:colorPrimaryDark">#0D0D0D</item>
+        <item name="android:colorAccent">#F7931A</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:statusBarColor">#0D0D0D</item>
+        <item name="android:navigationBarColor">#0D0D0D</item>
+    </style>
+</resources>

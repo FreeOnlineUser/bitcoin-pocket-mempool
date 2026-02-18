@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#1A1A2E</color>
+    <color name="bitcoin_orange">#F7931A</color>
+    <color name="background_dark">#0D0D0D</color>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_dark">#0D0D0D</color>
+    <color name="bitcoin_orange">#F7931A</color>
+    <color name="ic_launcher_background">#1A1A2E</color>
+    <string name="app_name">Pocket Mempool</string>
+    <string name="fee_estimates_1_hour">1 hour</string>
+    <string name="fee_estimates_30_minutes">30 minutes</string>
+    <string name="fee_estimates_next_block">Next Block</string>
+    <string name="fee_estimates_title">Recommended Fees</string>
+    <string name="fee_rate_distribution_no_data">No fee rate data available</string>
+    <string name="fee_rate_distribution_title">Fee Rate Distribution</string>
+    <string name="mempool_explorer_title">Mempool Explorer</string>
+    <string name="mempool_stats_total_vmb">Total vMB</string>
+    <string name="mempool_stats_transactions">Transactions</string>
+    <string name="mempool_stats_vb_per_sec">vB/s Inflow</string>
+    <string name="projected_blocks_no_data">No mempool data available</string>
+    <string name="projected_blocks_title">Projected Blocks</string>
+    <string name="transaction_details_fee">Fee</string>
+    <string name="transaction_details_fee_rate">Fee Rate</string>
+    <string name="transaction_details_projected_block">Projected Block</string>
+    <string name="transaction_details_stop_watching_button">Stop Watching</string>
+    <string name="transaction_details_time_in_mempool">Time in Mempool</string>
+    <string name="transaction_details_title">Transaction Details</string>
+    <string name="transaction_details_vsize">Virtual Size</string>
+    <string name="transaction_details_watch_button">Watch for Confirmation</string>
+    <string name="transaction_not_found_message">This transaction is not currently in the mempool. It may have been confirmed or never existed.</string>
+    <string name="transaction_not_found_title">Transaction Not Found</string>
+    <string name="transaction_search_button">Search Transaction</string>
+    <string name="transaction_search_error_title">Search Error</string>
+    <string name="transaction_search_hint">Enter Transaction ID (TXID)</string>
+    <string name="transaction_search_placeholder">64-character hex string...</string>
+    <string name="transaction_search_title">Transaction Search</string>
+    <string name="widget_description">Shows current mempool depth and fee rates</string>
+    <style name="Theme.PocketMempool" parent="android:Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">#F7931A</item>
+        <item name="android:colorPrimaryDark">#0D0D0D</item>
+        <item name="android:colorAccent">#F7931A</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:statusBarColor">#0D0D0D</item>
+        <item name="android:navigationBarColor">#0D0D0D</item>
+    </style>
+</resources>

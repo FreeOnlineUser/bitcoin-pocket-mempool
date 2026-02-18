@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.pocketmempool.app-mergeDebugResources-69:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/Users/joehey/.gradle/caches/transforms-3/2442e922fccf412bb4bf6b5bc006f999/transformed/appcompat-1.1.0/res/values-hdpi-v4/values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}
